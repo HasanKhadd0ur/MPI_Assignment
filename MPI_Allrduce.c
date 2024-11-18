@@ -78,21 +78,41 @@ int main(int argc, char** argv) {
 
     //[1] Use the naive implementation of MPI_Allreduce
     int global_value_naive = 0;
-    naive_allreduce(local_value, global_value_naive, MPI_COMM_WORLD);
-    printf("[Worker @ %d] I received global sum (naive): %d \n",rank, global_value_naive);
+    
+    // Start timing
+    double start_time_naive = MPI_Wtime(); 
+    // naive MPI All Reduce 
+    naive_allreduce(
+        local_value, 
+        global_value_naive, 
+        MPI_COMM_WORLD
+    );
+     // End timing
+    double end_time_naive = MPI_Wtime();
+    double time_naive = end_time_naive - start_time_naive;
+
+    printf("[Worker @ %d] My Naive MPI_Allreduce: Global sum = %d, Time = %.6f seconds\n",
+           rank, global_value_naive, time_naive);
 
     // [2] Use the built-in MPI_Allreduce for comparison
     int global_value_builtin = 0;
+    
+    // Start timing
+    double start_time_builtin = MPI_Wtime(); 
     // Mpi Alllreduce buld in
     MPI_Allreduce(
-        &local_value,
-        &global_value_builtin,
+        &local_value, 
+        &global_value_builtin, 
         1, MPI_INT, 
         MPI_SUM, 
         MPI_COMM_WORLD
     );
+    // End timing
+    double end_time_builtin = MPI_Wtime(); 
+    double time_builtin = end_time_builtin - start_time_builtin;
 
-    printf("[Worker @ %d] I received global sum (MPI_Allreduce): %d \n" ,rank, global_value_builtin );
+    printf("[Worker @ %d] Built-in MPI_Allreduce: Global sum = %d, Time = %.6f seconds\n",
+           rank, global_value_builtin, time_builtin);
 
     // Fina;ize 
     MPI_Finalize();
