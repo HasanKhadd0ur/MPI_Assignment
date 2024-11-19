@@ -115,7 +115,7 @@ int main(int argc, char** argv) {
     srand(time(0) + rank); 
 
     // Random integer between 0 and 99 (this is first simple intutyion in the next stage i will replace it with array )
-    int localValue = rand() % 100; 
+    //int localValue = rand() % 100; 
 
     const int ARRAY_SIZE = 5; // Length of each process's array
     vector<int> localArray(ARRAY_SIZE);
@@ -135,7 +135,7 @@ int main(int argc, char** argv) {
 
 
     //[1] Use the naive implementation of MPI_Allreduce
-    int globalValue = 0;
+   // int globalValue = 0;
     
     // Start timing
     double start_time_naive = MPI_Wtime(); 
@@ -166,14 +166,14 @@ int main(int argc, char** argv) {
     print(globalArrayNaive,rank,message);
 
     // [2] Use the built-in MPI_Allreduce for comparison
-    int globalValueBuiltIn = 0;
+   // int globalValueBuiltIn = 0;
     
     // Start timing
     double start_time_builtin = MPI_Wtime(); 
     // Mpi Alllreduce buld in
     // MPI_Allreduce(
     //     &localValue, 
-    //     &globalValueBuiltIn, 
+    //     &globalArrayBuiltin, 
     //     1, MPI_INT, 
     //     MPI_SUM, 
     //     MPI_COMM_WORLD
