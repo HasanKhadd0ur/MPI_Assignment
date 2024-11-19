@@ -133,6 +133,9 @@ int main(int argc, char** argv) {
     // seed with time and rank for unique values
     srand(time(0) + rank); 
 
+    // random integer between 0 and 99 (this is first simple intutyion in the next stage i will replace it with array )
+    int localValue = rand() % 100; 
+
     // define a :
     // local array for the local reduction 
     vector<int> localArray(ARRAY_SIZE);
