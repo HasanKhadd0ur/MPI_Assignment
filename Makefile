@@ -14,7 +14,7 @@ PROF_FLAGS = -pg
 
 ## Hosts Flags 
 
-MPI_HOSTS=mpi_host
+MPI_HOSTS=$(host)
 
 ## Source file
 SRC = $(Pr).c
@@ -35,7 +35,8 @@ build:
 
 ## Run the program with a specified number of processes
 run:
-	mpirun -n STATIONS_COUNT -f  $(MPI_HOSTS) ./$(TARGET)
+	mpirun -n $(STATIONS_COUNT) -f  $(MPI_HOSTS) ./$(TARGET)
+
 
 ## Clean the build
 clean:
